@@ -28,5 +28,5 @@ function draw() {
   }
 
   stroke(0);
-  ellipse(x, y, 50, d);
+  ellipse(x, y, d, d);
 }
