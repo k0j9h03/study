@@ -1,6 +1,6 @@
 let outer = [];
 let inner = [];
-let outerNumber = 10;
+let outerNumber = 18;
 let innerNumber = 3;
 let radius = 100;
 let radius2 = 30;
@@ -22,6 +22,8 @@ function setup(){
         let angle = unitAngle2 * i;
         inner[i] = new Star(angle, radius2);
     }
+
+    //   frameRate(5); // 초당 10프레임으로 설정
 }
 
 function draw(){
