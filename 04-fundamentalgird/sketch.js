@@ -1,5 +1,5 @@
-let columns = 10;
-let rows = 10;
+let columns = 30;
+let rows = 30;
 let colSize;
 let rowSize;
 
@@ -11,8 +11,8 @@ function setup(){
 
 function draw(){
     background(220);
-        for(let i=0; i < colSize; i++){
-            for(let j=0; j<rowSize; j++){
+        for(let i=0; i < columns; i++){
+            for(let j=0; j<rows; j++){
                 rect(colSize*i,rowSize*j,colSize,rowSize);
                 ellipse(colSize/2 + colSize*i,rowSize/2 + rowSize*j,colSize,rowSize);
             }
