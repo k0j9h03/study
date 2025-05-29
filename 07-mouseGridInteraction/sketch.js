@@ -1,8 +1,8 @@
-let radius = 14;
+let radius = 35;
 let cols, rows;
-let spacing = 15;
+let spacing = 35;
 let boxes = [];
-let size = 15;
+let size = 35;
 
 function setup() {
     createCanvas(700, 700);
