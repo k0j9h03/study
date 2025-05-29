@@ -13,12 +13,13 @@ class Rectangle {
         } else {
             fill(255);
         }
-        rect(this.x, this.y, this.w, this.h);
+        rect(this.x, this.y, this.w, this.h); // CENTER 기준
     }
 
     collided(cx, cy, r) {
-        let closeX = constrain(cx, this.x, this.x + this.w);
-        let closeY = constrain(cy, this.y, this.y + this.h);
+        // CENTER 기준으로 변경
+        let closeX = constrain(cx, this.x - this.w / 2, this.x + this.w / 2);
+        let closeY = constrain(cy, this.y - this.h / 2, this.y + this.h / 2);
         let dx = cx - closeX;
         let dy = cy - closeY;
         let distSq = dx * dx + dy * dy;

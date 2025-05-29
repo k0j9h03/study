@@ -1,24 +1,33 @@
-let r;
 let radius = 14;
+let cols, rows;
+let spacing = 15;
+let boxes = [];
+let size = 15;
 
+function setup() {
+    createCanvas(700, 700);
+    rectMode(CENTER); // 🔹 중요
+    cols = width / spacing;
+    rows = height / spacing;
 
-function setup(){
-    createCanvas(700,700);
-    r = new Rectangle(100,100,100,100);
+    for (let i = 0; i < cols; i++) {
+        boxes[i] = [];
+        for (let j = 0; j < rows; j++) {
+            boxes[i][j] = new Rectangle(spacing / 2 + i * spacing, spacing / 2 + j * spacing, size, size);
+        }
+    }
 }
 
-function draw(){
-    background(255);
-    r.draw();
+function draw() {
+    background(230);
 
-    if (r.collided(mouseX, mouseY, radius)) {
-        fill(0); // 충돌 시 검정
-    } else {
-        fill(255); // 비충돌 시 흰색
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            boxes[i][j].collided(mouseX, mouseY, radius);
+            boxes[i][j].draw();
+        }
     }
-    
-    fill(150); 
-    ellipse(mouseX, mouseY, radius * 2, radius * 2); // 원 그리기
 
-
+    fill(150);
+    ellipse(mouseX, mouseY, radius * 2, radius * 2); // 원
 }
