@@ -3,8 +3,8 @@ class Ball{
         this.x = x;
         this.y = y;
         this.r = r;
-        this.dx = 1.6;
-        this.dy = 1.2;
+        this.dx = 2;
+        this.dy = 3;
     }
 
     drawBall(){

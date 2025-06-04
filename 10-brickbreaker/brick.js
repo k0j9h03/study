@@ -40,8 +40,15 @@ class Brick{
         if(ball.r >= distance){
             this.colliding = true;
             this.val = 1;
+            ball.dy = ball.dy*-1
+                // if(ball.y > this.y){
+                //     ball.dx = ball.dx*-1
+
+                // }
         } else{
             this.colliding = false;
+
+
         }
 
     }
