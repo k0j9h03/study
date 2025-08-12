@@ -55,7 +55,7 @@ function draw() {
         noStroke();
         fill(0);
 
-        text('맴', i * size + size / 2, j * size + size / 2);
+        text('똥', i * size + size / 2, j * size + size / 2);
         } else {
         // 아무 것도 그리지 않음 → 이모티콘 안 보임
         }
