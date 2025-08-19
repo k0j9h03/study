@@ -9,8 +9,8 @@ let config = {
   VELOCITY_DISSIPATION: 0.98,
   PRESSURE_DISSIPATION: 0.8,
   PRESSURE_ITERATIONS: 20,
-  CURL: 30,
-  SPLAT_RADIUS: 0.5,
+  CURL: 25, // 컬 수치에 따라 유체 회전 밀도 바뀜
+  SPLAT_RADIUS: 0.4, // 커서ball exp하게 더해지는 크기로 추정
   SHADING: false,
   COLORFUL: false,
   PAUSED: false,
@@ -71,13 +71,6 @@ pointers.push(new pointerPrototype());
 
 const { gl, ext } = getWebGLContext(canvas);
 
-if (isMobile()) config.SHADING = false;
-if (!ext.supportLinearFiltering) {
-  config.SHADING = false;
-  config.BLOOM = false;
-}
-
-//startGUI();
 
 function getWebGLContext(canvas) {
   const params = {
@@ -178,22 +171,6 @@ function supportRenderTextureFormat(gl, internalFormat, format, type) {
 }
 
 
-function clamp01(input) {
-  return Math.min(Math.max(input, 0), 1);
-}
-
-function downloadURI(filename, uri) {
-  let link = document.createElement("a");
-  link.download = filename;
-  link.href = uri;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
-function isMobile() {
-  return /Mobi|Android/i.test(navigator.userAgent);
-}
 
 class GLProgram {
   constructor(vertexShader, fragmentShader) {
@@ -1347,19 +1324,6 @@ function splat(x, y, dx, dy, color) {
   density.swap();
 }
 
-function multipleSplats(amount) {
-  for (let i = 0; i < amount; i++) {
-    const color = generateColor();
-    color.r *= 10.0;
-    color.g *= 10.0;
-    color.b *= 10.0;
-    const x = canvas.width * Math.random();
-    const y = canvas.height * Math.random();
-    const dx = 1000 * (Math.random() - 0.5);
-    const dy = 1000 * (Math.random() - 0.5);
-    splat(x, y, dx, dy, color);
-  }
-}
 
 function resizeCanvas() {
   if (
@@ -1380,65 +1344,13 @@ canvas.addEventListener("mousemove", (e) => {
   pointers[0].y = e.offsetY;
 });
 
-/* canvas.addEventListener('touchmove', e => {
-    e.preventDefault();
-    const touches = e.targetTouches;
-    for (let i = 0; i < touches.length; i++) {
-        let pointer = pointers[i];
-        pointer.moved = pointer.down;
-        pointer.dx = (touches[i].pageX - pointer.x) * 8.0;
-        pointer.dy = (touches[i].pageY - pointer.y) * 8.0;
-        pointer.x = touches[i].pageX;
-        pointer.y = touches[i].pageY;
-    }
-}, false); */
 
 canvas.addEventListener("mousedown", () => {
   pointers[0].down = true;
   pointers[0].color = generateColor();
 });
 
-/* canvas.addEventListener('touchstart', e => {
-    e.preventDefault();
-    const touches = e.targetTouches;
-    for (let i = 0; i < touches.length; i++) {
-        if (i >= pointers.length)
-            pointers.push(new pointerPrototype());
 
-        pointers[i].id = touches[i].identifier;
-        pointers[i].down = true;
-        pointers[i].x = touches[i].pageX;
-        pointers[i].y = touches[i].pageY;
-        pointers[i].color = generateColor();
-    }
-}); */
-
-/* window.addEventListener('mouseup', () => {
-    pointers[0].down = false;
-}); */
-/* 
-window.addEventListener('touchend', e => {
-    const touches = e.changedTouches;
-    for (let i = 0; i < touches.length; i++)
-        for (let j = 0; j < pointers.length; j++)
-            if (touches[i].identifier == pointers[j].id)
-                pointers[j].down = false;
-}); */
-/* 
-window.addEventListener('keydown', e => {
-    if (e.code === 'KeyP')
-        config.PAUSED = !config.PAUSED;
-    if (e.key === ' ')
-        splatStack.push(parseInt(Math.random() * 20) + 5);
-}); */
-
-// function generateColor() {
-//   let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-//   c.r *= 0.15;
-//   c.g *= 0.15;
-//   c.b *= 0.15;
-//   return c;
-// }
 
 
 function generateColor() {
@@ -1452,41 +1364,7 @@ function generateColor() {
   };
 }
 
-function HSVtoRGB(h, s, v) {
-  let r, g, b, i, f, p, q, t;
-  i = Math.floor(h * 6);
-  f = h * 6 - i;
-  p = v * (1 - s);
-  q = v * (1 - f * s);
-  t = v * (1 - (1 - f) * s);
 
-  switch (i % 6) {
-    case 0:
-      (r = v), (g = t), (b = p);
-      break;
-    case 1:
-      (r = q), (g = v), (b = p);
-      break;
-    case 2:
-      (r = p), (g = v), (b = t);
-      break;
-    case 3:
-      (r = p), (g = q), (b = v);
-      break;
-    case 4:
-      (r = t), (g = p), (b = v);
-      break;
-    case 5:
-      (r = v), (g = p), (b = q);
-      break;
-  }
-
-  return {
-    r,
-    g,
-    b
-  };
-}
 
 function getResolution(resolution) {
   let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
