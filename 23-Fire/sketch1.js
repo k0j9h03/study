@@ -5,13 +5,13 @@ canvas.height = canvas.clientHeight;
 let config = {
   SIM_RESOLUTION: 128,
   DYE_RESOLUTION: 512,
-  DENSITY_DISSIPATION: 0.98, // 번짐 현상 완화를 위해 조금 낮춤
-  VELOCITY_DISSIPATION: 0.97, // 번짐 현상 완화를 위해 조금 낮춤
+  DENSITY_DISSIPATION: 0.97,
+  VELOCITY_DISSIPATION: 0.98,
   PRESSURE_DISSIPATION: 0.8,
   PRESSURE_ITERATIONS: 20,
-  CURL: 10, // 물의 소용돌이 느낌을 위해 컬 수치 낮춤
-  SPLAT_RADIUS: 0.3, // 물이 퍼지는 반경 축소
-  SHADING: true, // 물의 입체감을 위해 활성화
+  CURL: 25, // 컬 수치에 따라 유체 회전 밀도 바뀜
+  SPLAT_RADIUS: 0.4, // 커서ball exp하게 더해지는 크기로 추정
+  SHADING: false,
   COLORFUL: false,
   PAUSED: false,
   BACK_COLOR: {
@@ -19,12 +19,12 @@ let config = {
     g: 0,
     b: 0
   },
-  TRANSPARENT: false, // 체크무늬 배경 제거를 위해 false로 변경
+  TRANSPARENT: false,
   BLOOM: true,
   BLOOM_ITERATIONS: 8,
   BLOOM_RESOLUTION: 256,
-  BLOOM_INTENSITY: 0.5, // 반짝이는 느낌 약화
-  BLOOM_THRESHOLD: 0.7, // 반짝이는 느낌 약화
+  BLOOM_INTENSITY: 0.8,
+  BLOOM_THRESHOLD: 0.6,
   BLOOM_SOFT_KNEE: 0.7
 };
 
@@ -1354,9 +1354,9 @@ canvas.addEventListener("mousedown", () => {
 
 
 function generateColor() {
-  const r = 0;
-  const g = Math.floor(Math.random() * 30) + 70; // 좀 더 차분한 녹색 톤
-  const b = Math.floor(Math.random() * 30) + 180; // 좀 더 차분한 파란색 톤
+  const r = 255;
+  const g = Math.floor(Math.random() * 100)-1;
+  const b = 0;
   return {
     r: r / 255.0,
     g: g / 255.0,
