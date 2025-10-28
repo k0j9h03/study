@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹캠 아스키 아트</title>
+    <link rel="stylesheet" href="reset.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <label for="density">밀도:</label>
+            <input type="range" id="density" min="2" max="250" value="20">
+            <span id="densityValue">20</span>
+        </div>
+        <div id="ascii-output"></div>
+    </div>
+    <script src="sketch.js"></script>
+</body>
+</html>
